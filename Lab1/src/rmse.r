@@ -15,19 +15,21 @@ View(dataFiles)
 
 res = vector()
 r_times = vector()
+resMean = vector()
 
-# Test for General RMSE   
+# Test for General RMSE 
 for(i in 1:length(dataFiles))
 {
   startTime = Sys.time()
   res[i] = rmse(dataFiles[[i]][["kg"]], dataFiles[[i]][["kg.1"]])
   r_times[i] =  Sys.time() - startTime
-  
+  #RMSE by mean 
+  resMean[i] =  sqrt(mean((mean(dataFiles[[i]][["kg.1"]]) - dataFiles[[i]][["kg"]])^2))
 }
 
 print(res)
 print(r_times)
-
+print(resMean)
 fwrite(list(c("Time (Sec)", r_times)), "../dat/r-benchmark.csv")
 
 #plotting graph
